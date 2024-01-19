@@ -1,7 +1,7 @@
 import {
     Box, Button,
     chakra, Flex,
-    SimpleGrid, VStack,
+    SimpleGrid, useDisclosure, VStack,
 } from '@chakra-ui/react'
 import { FcCollect } from "react-icons/fc";
 import { GrSend } from "react-icons/gr";
@@ -11,6 +11,7 @@ import {useState} from "react";
 import 'react-calendar/dist/Calendar.css';
 import {ShippingTable} from "../components/ShippingTable.tsx";
 import Header from "../components/Header.tsx";
+import {DashboardModal} from "../components/DashboardModal.tsx";
 
 
 type ValuePiece = Date | null;
@@ -18,6 +19,8 @@ type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 export default function Dashboard() {
     const [value, onChange] = useState<Value>(new Date());
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [category, setCategory] = useState(1)
 
     return (
         <Box w="100vw" overflowX="hidden">
@@ -29,8 +32,8 @@ export default function Dashboard() {
                </chakra.h1>
                <Box maxW="8xl" bg="white" shadow="2xl" rounded="20px" w="inherit" p={10}>
                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }}>
-                       <StatsCard title={'Create Purchase'} stat={'0'} icon={<GrSend size={'3em'} />} />
-                       <StatsCard title={'Receive Purchase'} stat={'0'} icon={<FcCollect size={'3em'} />} />
+                       <StatsCard cat={1} setCategory={setCategory} onOpen={onOpen} title={'Create Purchase'} stat={'0'} icon={<GrSend size={'3em'} />} />
+                       <StatsCard cat={2} setCategory={setCategory} onOpen={onOpen} title={'Receive Purchase'} stat={'0'} icon={<FcCollect size={'3em'} />} />
                    </SimpleGrid>
 
                     <Box my={5} shadow="2xl">
@@ -55,6 +58,7 @@ export default function Dashboard() {
                 </Box>
             </VStack>
         </Flex>
+            <DashboardModal category={category} isOpen={isOpen} onClose={onClose} />
         </Box>
     )
 }

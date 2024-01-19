@@ -5,12 +5,23 @@ interface StatsCardProps {
     title: string
     stat: string
     icon: ReactNode
+    onOpen: () => void
+    setCategory: (value: number) => void
+    cat: number
 }
 
 export function StatsCard(props: StatsCardProps) {
-    const { title, stat, icon } = props
+    const { title, stat, icon, onOpen, setCategory, cat } = props
+
+
+    const trigger = (id: number) => {
+        setCategory(id);
+        onOpen();
+    }
+
     return (
         <Stat
+            onClick={() => trigger(cat)}
             px={{ base: 2, md: 4 }}
             py={'5'}
             shadow={'2xl'}
