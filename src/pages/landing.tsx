@@ -1,6 +1,6 @@
 import {Box, Container, Flex, Image, Text, VStack} from "@chakra-ui/react";
 import LandingImage from "../assets/landing.png"
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import {ConnectKitButton} from "connectkit";
 
 const LandingPage = () => {
     return (
@@ -11,7 +11,7 @@ const LandingPage = () => {
                         <Text fontSize="72" fontWeight="bold">Shippr</Text>
                         <Text fontSize="24" fontWeight="semibold">Exquisite escrow service</Text>
 
-                        <ConnectButton  />
+                        <ConnectKitButton />
 
                     </VStack>
                 </Box>

@@ -7,6 +7,8 @@ import {
     ModalBody,
     ModalCloseButton,
     Button,
+    Stack,
+    Input, Box, FormControl, FormLabel, FormHelperText,
 
 } from '@chakra-ui/react'
 import {useEffect, useState} from "react";
@@ -43,14 +45,68 @@ export function DashboardModal({ isOpen, onClose, category }: Modal) {
                     <ModalHeader>{data.title}</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        reiiremfr renfre
+                        <Box as={'form'}>
+                            <Stack spacing={4}>
+
+                                <FormControl>
+                                    <FormLabel>Merchant Address</FormLabel>
+                                    <Input
+                                        placeholder="0x000000"
+                                        bg={'gray.100'}
+                                        border={0}
+                                        color={'gray.500'}
+                                        _placeholder={{
+                                            color: 'gray.500',
+                                        }}
+                                    />
+                                    {/*<FormHelperText>Your merchant address.</FormHelperText>*/}
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Name of the product</FormLabel>
+                                <Input
+                                    placeholder="Product name"
+                                    bg={'gray.100'}
+                                    border={0}
+                                    color={'gray.500'}
+                                    _placeholder={{
+                                        color: 'gray.500',
+                                    }}
+                                />
+                                    {/*<FormHelperText>Your merchant address.</FormHelperText>*/}
+                                </FormControl>
+
+                                <FormControl>
+                                    <FormLabel>Amount</FormLabel>
+                                <Input
+                                    placeholder="200"
+                                    bg={'gray.100'}
+                                    border={0}
+                                    color={'gray.500'}
+                                    _placeholder={{
+                                        color: 'gray.500',
+                                    }}
+                                />
+                                <FormHelperText>Amount to be deducted from your wallet and locked</FormHelperText>
+                            </FormControl>
+                            </Stack>
+                            <Button
+                                fontFamily={'heading'}
+                                mt={8}
+                                w={'full'}
+                                bgGradient="linear(to-r, red.400,pink.400)"
+                                color={'white'}
+                                _hover={{
+                                    bgGradient: 'linear(to-r, red.400,pink.400)',
+                                    boxShadow: 'xl',
+                                }}>
+                                Submit
+                            </Button>
+                        </Box>
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button variant='ghost'>Secondary Action</Button>
+
                     </ModalFooter>
                 </ModalContent>
             </Modal>

@@ -1,35 +1,33 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import {ReactNode} from "react";
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import {configureChains, createConfig, WagmiConfig} from 'wagmi';
-import { mainnet, polygon, sepolia } from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
-import '@rainbow-me/rainbowkit/styles.css';
+import {createConfig, WagmiConfig} from 'wagmi';
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
-const { chains, publicClient } = configureChains(
-    [mainnet, polygon, sepolia],
-    [publicProvider()],
+import { mainnet, polygon, sepolia } from "wagmi/chains";
+
+
+const chains = [mainnet, polygon, sepolia];
+const config = createConfig(
+    getDefaultConfig({
+        // Required API Keys
+        alchemyId: import.meta.env.ALCHEMY_ID,
+        walletConnectProjectId: import.meta.env.WALLETCONNECT_PROJECT_ID,
+        chains,
+        // Required
+        appName: "Shippr",
+
+        // Optional
+        appDescription: "Delivery Escrow Service",
+    }),
 );
-
-const { connectors } = getDefaultWallets({
-    appName: 'My RainbowKit App',
-    projectId: 'YOUR_PROJECT_ID',
-    chains,
-});
-
-const wagmiConfig = createConfig({
-    autoConnect: true,
-    connectors,
-    publicClient,
-});
 
 export const Providers = ({ children}: { children: ReactNode }) => {
       return (
         <ChakraProvider>
-            <WagmiConfig config={ wagmiConfig} >
-                <RainbowKitProvider chains={chains}>
+            <WagmiConfig config={config} >
+                <ConnectKitProvider>
                     {children}
-                </RainbowKitProvider>
+                </ConnectKitProvider>
             </WagmiConfig>
         </ChakraProvider>
       );
